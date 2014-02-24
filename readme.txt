@@ -4,7 +4,7 @@ Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor
 Requires at least: 1.5
 Tested up to: 3.4
-Stable tag: 3.05
+Stable tag: 1.04
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
