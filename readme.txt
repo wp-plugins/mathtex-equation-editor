@@ -1,4 +1,4 @@
-=== Instant Adsense ===
+=== MathTex Equation Editor ===
 Contributors: kobmat
 Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor
