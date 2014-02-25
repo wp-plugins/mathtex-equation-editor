@@ -10,42 +10,55 @@ jQuery(document).ready(function($){
 				opener.TinyMCE_Add(jQuery('#EditorWindow textarea').val());
 			});
 			
+			<?php
+			if(get_option('mathtex_editor_code_completion') == "yes")
+			{
+			?>
+				jQuery('#EditorWindow textarea').keydown(function(event){
+						positionStart = jQuery('#EditorWindow textarea').caret().start;
+						positionEnd = jQuery('#EditorWindow textarea').caret().end;
+						
+						if(event.shiftKey == true && event.which == 219)
+						{
+							if(mathtex_autocomplete() == true)
+								{
+									event.preventDefault();
+									return false;
+								}
+						}
+						
+						if(event.shiftKey == true && event.which == 219)
+						{
+							mathex_autoclose("{", "}");
+							event.preventDefault();
+						}
+						
+						if(event.shiftKey == true && event.which == 57)
+						{
+							mathex_autoclose("(", ")");
+							event.preventDefault();
+						}
+						
+						if(event.shiftKey == true && event.which == 220)
+						{
+							mathex_autoclose("|", "|");
+							event.preventDefault();
+						}
+						
+						if(event.shiftKey == false && event.which == 219)
+						{
+							mathex_autoclose("[", "]");
+							event.preventDefault();
+						}
+						
+					}).mousemove(function() {
+						positionStart = jQuery('#EditorWindow textarea').caret().start;
+						positionEnd = jQuery('#EditorWindow textarea').caret().end;
+					});
 			
-			
-			jQuery('#EditorWindow textarea').keydown(function(event){
-				positionStart = jQuery('#EditorWindow textarea').caret().start;
-				positionEnd = jQuery('#EditorWindow textarea').caret().end;
-				
-				//@TODO add code for auto completion
-				if(event.shiftKey == true && event.which == 219)
-				{
-					mathex_autoclose("{", "}");
-					event.preventDefault();
-				}
-				
-				if(event.shiftKey == true && event.which == 57)
-				{
-					mathex_autoclose("(", ")");
-					event.preventDefault();
-				}
-				
-				if(event.shiftKey == true && event.which == 220)
-				{
-					mathex_autoclose("|", "|");
-					event.preventDefault();
-				}
-				
-				if(event.shiftKey == false && event.which == 219)
-				{
-					mathex_autoclose("[", "]");
-					event.preventDefault();
-				}
-				
-			}).mousemove(function() {
-				positionStart = jQuery('#EditorWindow textarea').caret().start;
-				positionEnd = jQuery('#EditorWindow textarea').caret().end;
-				console.log(positionStart,positionEnd);
-			});
+			<?php
+			}
+			?>
 			
 			if(jQuery('#EditorWindow textarea').val().length)
 			{
@@ -64,13 +77,82 @@ jQuery(document).ready(function($){
 					jQuery('#resultWindow img').show();
 				
 				jQuery('#resultWindow img').attr('src', url + <?php if(substr(get_option('mathtex_editor_server_url'), -1) != '=') { echo "'?' + "; } ?>  encodeURIComponent($('#EditorWindow textarea').val())); 
-				positionStart = jQuery('#EditorWindow textarea').caret().start;
-				positionEnd = jQuery('#EditorWindow textarea').caret().end;
-				
+				<?php
+				if(get_option('mathtex_editor_code_completion') == "yes")
+				{
+				?>
+					positionStart = jQuery('#EditorWindow textarea').caret().start;
+					positionEnd = jQuery('#EditorWindow textarea').caret().end;
+					<?php
+				}
+				?>
 				},500);
 				
 				
 		});
+		
+		function mathtex_autocomplete()
+		{
+			$textarea = jQuery('#EditorWindow textarea');
+			matches = $textarea.val().substring(0, positionStart).match(/\\(.*)$/);
+			return_val = false;
+			if(matches)
+			{
+				toadd = '';
+				xfocus = positionStart;
+				switch(matches[0])
+				{
+					case '\\frac':
+					case '\\tfrac':
+					case '\\overset':
+					case '\\underset':
+						next_char=$textarea.val().substring(positionStart, positionStart+1);
+						if(next_char != "}")
+						{
+							toadd = "{}{}";
+							xfocus = positionStart + 1;
+						}
+						break;
+					case '\\sqrt':
+					case '\\widetilde':
+					case '\\widehat':
+					case '\\overleftarrow':
+					case '\\overrightarrow':
+					case '\\overline':
+					case '\\underline':
+					case '\\overbrace':
+					case '\\underbrace':
+					case '\\lim_':
+					case '\\dot':
+					case '\\ddot':
+					case '\\hat':
+					case '\\check':
+					case '\\grave':
+					case '\\acute':
+					case '\\tilde':
+					case '\\breve':
+					case '\\bar':
+					case '\\vec':
+					case '\\not':
+						next_char=$textarea.val().substring(positionStart, positionStart+1);
+						if(next_char != "}")
+						{
+							toadd = "{}";
+							xfocus = positionStart + 1;
+						}
+						break;
+					
+				}
+				
+				$textarea.val($textarea.val().substring(0, positionStart) + toadd + $textarea.val().substring(positionEnd));
+				$textarea.caret(xfocus, xfocus);
+				
+				if(toadd.length > 0)
+					return_val = true;
+			}
+			
+			return return_val;
+		}
 		
 		function mathex_autoclose(charstart, charend)
 			{
@@ -80,7 +162,6 @@ jQuery(document).ready(function($){
 				if(matches)
 				{
 				ismatch = matches[0].match(/^\\left/);
-				console.log(ismatch);
 				if(ismatch[0] == "\\left")
 					charend = "\\right "+charend;
 				}
