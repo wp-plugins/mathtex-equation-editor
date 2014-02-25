@@ -51,3 +51,7 @@ Simple, just double click on the image.
 * Auto closing {,(, [ and | when typing on the MathTex Editor
 * Auto completions of math LaTeX markup like \frac{}{} and \sqrt{}
 
+== Upgrade Notice ==
+
+= 1.05 =
+This version add basic auto closing and completion features
