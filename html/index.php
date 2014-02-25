@@ -7,67 +7,10 @@ require($dirname.'/wp-blog-header.php');
 	<head>
 		<title>MathTex Editor</title>
 		<?php wp_head(); ?> 
-		<script>
-		jQuery(document).ready(function($){
-			url = "<?php echo get_option('mathtex_editor_server_url'); ?>";
-			
-			jQuery('#controlbuttons input[value="Insert Equation"]').click(function(){
-				opener.TinyMCE_Add(jQuery('#EditorWindow textarea').val());
-			});
-			
-			
-			if(jQuery('#EditorWindow textarea').val().length)
-			{
-				jQuery('#EditorWindow textarea').change();
-			}
-			
-			if(jQuery('#EditorWindow textarea').val().length == 0)
-			{
-				jQuery('#resultWindow img').hide();
-			}
-			
-			setInterval(function(){
-				if(jQuery('#EditorWindow textarea').val().length == 0)
-					jQuery('#resultWindow img').hide();
-				else
-					jQuery('#resultWindow img').show();
-				
-				jQuery('#resultWindow img').attr('src', url + <?php if(substr(get_option('mathtex_editor_server_url'), -1) != '=') { echo "'?' + "; } ?>  encodeURIComponent($('#EditorWindow textarea').val())); 
-				},500);
-		});
+		<script src="<?php echo plugins_url('js/jquery.caret.1.02.js', __FILE__); ?>"></script>
+		<script src="<?php echo plugins_url('js/mathtex.js.php', __FILE__); ?>"></script>
+		<link href="<?php echo plugins_url('css/style.css', __FILE__); ?>" rel="stylesheet" type="text/css">
 		
-		function load(latex)
-		{
-			jQuery('#EditorWindow textarea').val(latex);
-			jQuery('#EditorWindow textarea').change();
-		}
-		</script>
-		<style>
-			Body {
-				padding: 10px;
-			}
-			
-			div {
-				text-align:center;
-			}
-			
-			#resultWindow, #controlbuttons {
-				padding:10px;
-			}
-			
-			#EditorWindow {
-				text-align:left;
-			}
-			
-			#EditorWindow h2, #EditorWindow p {
-				padding: 0px;
-				margin: 0px;	
-			}
-			
-			#latex_formula {
-				height: 200px;
-			}
-		</style>
 	</head>
 	<body>
 		<div id="EditorWindow">

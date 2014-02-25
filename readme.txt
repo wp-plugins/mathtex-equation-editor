@@ -1,14 +1,14 @@
-=== Instant Adsense ===
+=== MathTex Equation Editor ===
 Contributors: kobmat
 Donate Link: http://kobmat.com/math/?page_id=5919
-Tags: math, equation, editor
+Tags: math, equation, editor, latex
 Requires at least: 1.5
-Tested up to: 3.4
-Stable tag: 1.04
+Tested up to: 3.8.1
+Stable tag: 1.05
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Inserts Math Equations on your posts. Requires a MathTex installed on your server
+Inserts Math Equations on your posts. 
 
 == Description ==
 
@@ -44,3 +44,10 @@ Simple, just double click on the image.
 
 1. The Math LaTeX Equation Editor with preview and the insert equation image on the wordpress editor
 2. The icons added to the Wordpress editor toolbar.The icon inside the green square, if you were using codecogs before and you want to convert all the equations in the post to your mathtex.cgi installation. Clicking the button will scan the post for the equations and change the src to point to your mathTex Server location.
+
+== Changelog ==
+
+= 1.05 =
+* Auto closing {,(, [ and | when typing on the MathTex Editor
+* Auto completions of math LaTeX markup like \frac{}{} and \sqrt{}
+

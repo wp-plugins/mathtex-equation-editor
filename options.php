@@ -16,6 +16,7 @@
 		<li style="margin-left:50px;">http://www.sciweavers.org/tex2img.php?bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0&eq=</li>
 	</ul>
 </p>
+
 <form method="post" action="options.php"> 
 <?php settings_fields( 'mathTex' ); ?>
 <?php do_settings_sections( 'mathTex' ); ?>
@@ -23,6 +24,15 @@
  		<tr valign="top" nowrap="nowrap">
         <th scope="row">MathTex Server URL</th>
         <td><input type="text" name="mathtex_editor_server_url" value="<?php echo get_option('mathtex_editor_server_url'); ?>" size="50"/></td>
+        </tr>
+        <tr valign="top" nowrap="nowrap">
+        <th scope="row">Enable Math Latex Code Completion</th>
+        <td>
+        	<select name="mathtex_editor_code_completion">
+        		<option value="yes" <?php echo get_option('mathtex_editor_code_completion') == "yes" ? 'selected="selected"' : ''; ?>>yes</option>
+        		<option value="no" <?php echo get_option('mathtex_editor_code_completion') == "no" ? 'selected="selected"' : ''; ?>>no</option>
+        	</select>
+        	
         </tr>
         <tr>
         	<td colspan="2">
@@ -34,7 +44,11 @@
         </tr>
          <tr valign="top" nowrap="nowrap">
         <th scope="row">Enable Latex Form CodeCogs Conversion</th>
-        <td><input type="text" name="mathtex_enable_codecogs_conversions" value="<?php echo get_option('mathtex_enable_codecogs_conversions'); ?>" size="3"/> 
+        <td>
+        	<select name="mathtex_enable_codecogs_conversions">
+        		<option value="yes" <?php echo get_option('mathtex_enable_codecogs_conversions') == "yes" ? 'selected="selected"' : ''; ?>>yes</option>
+        		<option value="no" <?php echo get_option('mathtex_enable_codecogs_conversions') == "no" ? 'selected="selected"' : ''; ?>>no</option>
+        	</select>
         </td>
         </tr>
         <tr valign="top" nowrap="nowrap">
