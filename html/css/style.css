@@ -15,5 +15,32 @@
 }
 
 #controlbuttons input {
-	font-size:20px;
+	font-size:12px;
 }
+
+
+			Body {
+				padding: 10px;
+			}
+			
+			div {
+				text-align:center;
+			}
+			
+			#resultWindow, #controlbuttons {
+				padding:10px;
+			}
+			
+			#EditorWindow {
+				text-align:left;
+			}
+			
+			#EditorWindow h2, #EditorWindow p {
+				padding: 0px;
+				margin: 0px;	
+			}
+			
+			#latex_formula {
+				height: 200px;
+			}
+		

@@ -10,6 +10,7 @@ Author URI: http://www.kobmat.com/math
 add_option( 'mathtex_editor_server_url', 'http://www.cyberroadie.org/cgi-bin/mathtex.cgi');
 add_option( 'mathtex_codecogs_url', 'http://latex.codecogs.com/gif.latex?');
 add_option( 'mathtex_enable_codecogs_conversions', 'yes');
+add_option( 'mathtex_editor_code_completion', 'yes');
 
 function latex_mathtex_init() {
 	add_filter('mce_external_plugins', "mathtex_register");
@@ -51,6 +52,7 @@ function register_mysettings() { // whitelist options
   register_setting( 'mathTex', 'mathtex_editor_server_url' );
   register_setting( 'mathTex', 'mathtex_enable_codecogs_conversions' );
   register_setting( 'mathTex', 'mathtex_codecogs_url' );
+  register_setting( 'mathTex',  'mathtex_editor_code_completion');
 }
 
 function mathtex_settings_page() {
