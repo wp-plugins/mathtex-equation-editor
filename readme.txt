@@ -4,7 +4,7 @@ Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor, latex
 Requires at least: 1.5
 Tested up to: 3.8.1
-Stable tag: 1.05
+Stable tag: 1.0.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -47,11 +47,11 @@ Simple, just double click on the image.
 
 == Changelog ==
 
-= 1.05 =
+= 1.0.5 =
 * Auto closing {,(, [ and | when typing on the MathTex Editor
 * Auto completions of math LaTeX markup like \frac{}{} and \sqrt{}
 
 == Upgrade Notice ==
 
-= 1.05 =
+= 1.0.5 =
 This version add basic auto closing and completion features
