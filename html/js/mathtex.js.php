@@ -10,6 +10,14 @@ jQuery(document).ready(function($){
 				opener.TinyMCE_Add(jQuery('#EditorWindow textarea').val());
 			});
 			
+			jQuery('.icon').click(function(){
+				mathtex_insert(jQuery(this).attr('data-insert'));
+			});
+			
+			jQuery('#codeassist h3').click(function(){
+				jQuery('#codeassist > div').hide();
+				console.log(jQuery(this).next().show());
+			});
 			<?php
 			if(get_option('mathtex_editor_code_completion') == "yes")
 			{
@@ -87,8 +95,8 @@ jQuery(document).ready(function($){
 				}
 				?>
 				},500);
-				
-				
+			
+			
 		});
 		
 		function mathtex_autocomplete()
@@ -152,6 +160,15 @@ jQuery(document).ready(function($){
 			}
 			
 			return return_val;
+		}
+		
+		
+    
+		function mathtex_insert(data)
+		{
+			$textarea = jQuery('#EditorWindow textarea');
+			$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
+			$textarea.caret(positionStart + data.length, positionStart + data.length); 
 		}
 		
 		function mathex_autoclose(charstart, charend)
