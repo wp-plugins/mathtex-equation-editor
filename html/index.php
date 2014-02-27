@@ -2,15 +2,7 @@
 define('WP_USE_THEMES', false); 
 $dirname = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
 require($dirname.'/wp-blog-header.php'); 
-/*
-$d = dir("img/uppercase_greek");
-$data = 'Array(';
-while($file = $d->read())
-{
-	$data .= '"'.$file.'" => array("\\"),'."\n";
-}
-$data .= ')';
-*/ ?>
+?>
 <html>
 	<head>
 		<title>MathTex Editor</title>
@@ -29,13 +21,76 @@ $data .= ')';
 			
 			<div id="editorlayer">
 				<div id="codeassist" class="accordion">
-					<h3>Symbols</h3>
+					<h3>Operators</h3>
 					<div>
-						<div class="icon m_cdot" data-insert="\cdot "></div>
-						<div class="icon m_div" data-insert="\div "></div>
-						<div class="icon m_approx" data-insert="\approx "></div>
-						<div class="icon m_mp" data-insert="\mp "></div>
-						<div class="icon m_bigcirc" data-insert="\bigcirc "></div>
+						<?php
+						require_once(dirname(__FILE__).'/img/operators/symbols.php');
+						foreach($operators as $file => $item)
+						{
+							?>
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/operators/<?php echo $file; ?>" 
+											style="margin-top:;"></div>
+							<?php
+						}
+						?>
+						<div style="clear:both;"></div>
+					</div>
+					<h3>Fractions &amp Exponents</h3>
+					<div>
+						<?php
+						require_once(dirname(__FILE__).'/img/fractions/symbols.php');
+						foreach($fractions as $file => $item)
+						{
+							$size = getimagesize('img/fractions/'.$file)
+							?>
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/fractions/<?php echo $file; ?>" <?php echo $size[1] > 32 ? 'height="30px"' : ''; ?>
+											style="margin-top:;"></div>
+							<?php
+						}
+						?>
+						<div style="clear:both;"></div>
+					</div>
+					<h3>Calculus</h3>
+					<div>
+						<?php
+						require_once(dirname(__FILE__).'/img/calculus/symbols.php');
+						foreach($calculus as $file => $item)
+						{
+							$size = getimagesize('img/calculus/'.$file)
+							?>
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/calculus/<?php echo $file; ?>" <?php echo $size[1] > 32 ? 'height="30px"' : ''; ?>
+											style="margin-top:;"></div>
+							<?php
+						}
+						?>
+						<div style="clear:both;"></div>
+					</div>
+					<h3>Brackets</h3>
+					<div>
+						<?php
+						require_once(dirname(__FILE__).'/img/brackets/symbols.php');
+						foreach($brackets as $file => $item)
+						{
+							?>
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/brackets/<?php echo $file; ?>" 
+											style="margin-top:;"></div>
+							<?php
+						}
+						?>
+						<div style="clear:both;"></div>
+					</div>
+					<h3>Arrows</h3>
+					<div>
+						<?php
+						require_once(dirname(__FILE__).'/img/arrows/symbols.php');
+						foreach($arrows as $file => $item)
+						{
+							?>
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/arrows/<?php echo $file; ?>" 
+											style="margin-top:;"></div>
+							<?php
+						}
+						?>
 						<div style="clear:both;"></div>
 					</div>
 					<h3>Relational</h3>
@@ -73,7 +128,7 @@ $data .= ')';
 						foreach($uppercase_greek as $file => $item)
 						{
 							?>
-							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/lowercase_greek/<?php echo $file; ?>" 
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/uppercase_greek/<?php echo $file; ?>" 
 											style="margin-top:;"></div>
 							<?php
 						}
@@ -82,24 +137,30 @@ $data .= ')';
 					</div>
 					<h3>Sets</h3>
 					<div>
-						<div class="icon m_otimes" data-insert="\otimes "></div>
-						<div class="icon m_asymp" data-insert="\asymp "></div>
-						<div class="icon m_supseteq" data-insert="\subseteq "></div>
-						<div class="icon m_preceq" data-insert="\preceq "></div>
-						<div class="icon m_ll" data-insert="\ll "></div>
-						<div class="icon m_succ" data-insert="\succ "></div>
+						<?php
+						require_once(dirname(__FILE__).'/img/sets/symbols.php');
+						foreach($sets as $file => $item)
+						{
+							?>
+							<div class="icon" data-insert="<?php echo $item[0]; ?>"><img src="img/sets/<?php echo $file; ?>" 
+											style="margin-top:;"></div>
+							<?php
+						}
+						?>
 						<div style="clear:both;"></div>
 					</div>
 					
 					
 				</div>
-				<textarea id="latex_formula"><?php echo stripslashes(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? $_GET['latex'] : urldecode($_GET['latex'])); ?><?php echo $data; ?></textarea>
-				<div id="resultWindow">
-					<img src="<?php echo get_option('mathtex_editor_server_url'); ?>">
-				</div>
-				<div id="controlbuttons">
-					<input type="button" value="Clear" />
-					<input type="button" value="Insert Equation" />
+				<div id="containersa">
+					<textarea id="latex_formula"><?php echo stripslashes(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? $_GET['latex'] : urldecode($_GET['latex'])); ?></textarea>
+					<div id="resultWindow">
+						<img src="<?php echo get_option('mathtex_editor_server_url'); ?>">
+					</div>
+					<div id="controlbuttons">
+						<input type="button" value="Clear" />
+						<input type="button" value="Insert Equation" />
+					</div>
 				</div>
 			</div>
 		</div>

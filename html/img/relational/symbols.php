@@ -23,7 +23,7 @@ $relational = Array(
 	"ngtr.gif" => array("\\ngtr "),
 	"nleqslant .gif" => array("\\nleqslant "),
 	"nless.gif" => array("\\nless "),
-	"notequiv.gif" => array("\\notequiv "),
+	"notequiv.gif" => array("\\not\\equiv "),
 	"oversetdiff.png" => array("\overset{\underset{\mathrm{def}}{}}{=} "),
 	"parallel.gif" => array("\\parallel "),
 	"perp.gif" => array("\\perp "),

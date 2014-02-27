@@ -1,8 +1,8 @@
 /* icons */
 .icon 
 {
-	width: 16px;
-	height: 16px;
+	width: 32px;
+	height: 32px;
 	float: left;
 	margin: 1px;
 	border: 1px solid #CCCCCC;
@@ -42,6 +42,10 @@
 	clear: both;
 }
 
+#containersa {
+	width: 500px;
+	float: right;
+}
 #EditorWindow textarea {
 	width: 500px;
 	height: 300px;
@@ -93,7 +97,7 @@
 			}
 			
 			#codeassist {
-				width: 140px;
+				width: 150px;
 				float:left;
 			}
 		

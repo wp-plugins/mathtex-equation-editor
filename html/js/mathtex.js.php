@@ -15,8 +15,15 @@ jQuery(document).ready(function($){
 			});
 			
 			jQuery('#codeassist h3').click(function(){
-				jQuery('#codeassist > div').hide();
-				console.log(jQuery(this).next().show());
+				if(jQuery(this).next().css('display') == "block") {
+					jQuery('#codeassist > div').hide();
+				}
+				else
+				{
+					jQuery('#codeassist > div').hide();
+					jQuery(this).next().show();
+				}
+				
 			});
 			<?php
 			if(get_option('mathtex_editor_code_completion') == "yes")
@@ -167,8 +174,36 @@ jQuery(document).ready(function($){
 		function mathtex_insert(data)
 		{
 			$textarea = jQuery('#EditorWindow textarea');
-			$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
-			$textarea.caret(positionStart + data.length, positionStart + data.length); 
+			if(positionStart == positionEnd)
+			{
+				if(data.indexOf('#') > 0)
+				{
+					data2 = data.replace("#", "");
+					$textarea.val($textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd));
+					$textarea.caret(positionStart + data.indexOf('#'), positionStart + data.indexOf('#'));
+				}
+				else
+				{
+				$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
+				$textarea.caret(positionStart + data.length, positionStart + data.length);
+				} 
+			}
+			else
+			{
+				selected_text = $textarea.val().substring(positionStart,positionEnd);
+				if(data.indexOf('#') > 0)
+					{
+					xpos = data.indexOf('#');
+					data = data.substring(0, data.indexOf('#')) + selected_text + data.substring(data.indexOf('#') +1);
+					$textarea.val(data);
+					$textarea.caret(positionStart + data.length, positionStart + data.length); 
+					}
+				else
+					{
+					$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
+					$textarea.caret(positionStart + data.length, positionStart + data.length); 	
+					}
+			}
 		}
 		
 		function mathex_autoclose(charstart, charend)

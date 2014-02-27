@@ -45,7 +45,7 @@ var popupEqnwin = null;
 						url2 +='?latex='+escape(latex);
 					}
 					
-					popupEqnwin=window.open(url2,'mathTexEditor','width=700,height=700,status=1,scrollbars=yes,resizable=1');
+					popupEqnwin=window.open(url2,'mathTexEditor','width=700,height=750,status=1,scrollbars=yes,resizable=1');
 					
 				}
 				else if (window.focus) 
