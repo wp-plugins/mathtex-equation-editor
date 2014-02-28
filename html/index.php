@@ -163,6 +163,10 @@ if(!file_exists($upload_path['basedir'].'/mathtex'))
 					
 				</div>
 				<div id="containersa">
+					<div style="text-align: right;">
+						<a href="" id="prevbutton"><<</a>&nbsp;&nbsp;&nbsp;<span>History</span>&nbsp;&nbsp;&nbsp;
+						<a href="" id="forwardbutton">>></a>
+					</div>
 					<textarea id="latex_formula"><?php echo stripslashes(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? $_GET['latex'] : urldecode($_GET['latex'])); ?></textarea>
 					<div id="resultWindow">
 						<img src="<?php echo (get_option('mathtex_use_php_to_request') == "no" && get_option('mathtex_enable_cache') == "no") ? get_option('mathtex_editor_server_url') : plugins_url('latex.php?cache=1&d=', __FILE__); ?>">
@@ -170,6 +174,7 @@ if(!file_exists($upload_path['basedir'].'/mathtex'))
 					<div id="controlbuttons">
 						<input type="button" value="Clear" />
 						<input type="button" value="Insert Equation" />
+						<input type="button" value="Send To Wolfram Alpha" style="background-color:#CCCCCC;margin-top: 10px;"/>
 					</div>
 				</div>
 			</div>

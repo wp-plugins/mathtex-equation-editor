@@ -7,8 +7,49 @@ require($dirname.'/wp-blog-header.php');
 ?>
 jQuery(document).ready(function($){
 			url = "<?php echo (get_option('mathtex_use_php_to_request') == "no" && get_option('mathtex_enable_cache') == "no") ? get_option('mathtex_editor_server_url') : plugins_url('latex.php?cache=1&d=', dirname(__FILE__)); ?>";
+			$.get('<?php echo plugins_url('history.php', dirname(__FILE__)); ?>', function(data) {
+				equations = data;
+				loaded_equation = equations.length-1;
+				if(jQuery('#EditorWindow textarea').val().length == 0)
+					jQuery('#EditorWindow textarea').val(equations[equations.length-1]);
+					
+				if(equations.length == 0)
+					{
+						$('#forwardbutton').hide();
+						$('prevbutton').hide();
+						$('prevbutton').parent().hide();
+					}
+			});
+			
+			$('input[value="Send To Wolfram Alpha"]').click(function(){
+				if(positionStart == positionEnd)
+					window.open('http://www.wolframalpha.com/input/?i=' + encodeURIComponent($('#EditorWindow textarea').val()));
+				else
+					window.open('http://www.wolframalpha.com/input/?i=' + encodeURIComponent($('#EditorWindow textarea').val().substring(positionStart, positionEnd)));			
+			});
+			
+			$('#forwardbutton').click(function(){
+				if(loaded_equation+1 >= equations.length)
+					loaded_equation = -1;
+				
+				loaded_equation++;	
+				jQuery('#EditorWindow textarea').val(equations[loaded_equation]);
+				return false;	
+			});
+			
+			$('#prevbutton').click(function(){
+				if(loaded_equation-1 < 0)
+					loaded_equation = equations.length;
+				
+				loaded_equation--;	
+				jQuery('#EditorWindow textarea').val(equations[loaded_equation]);		
+				return false;
+			});
 			
 			jQuery('#controlbuttons input[value="Insert Equation"]').click(function(){
+				$.post('<?php echo plugins_url('history.php?d=savehistory', dirname(__FILE__)); ?>', {latex: jQuery('#EditorWindow textarea').val()}, function(){
+						equations[equations.length] = jQuery('#EditorWindow textarea').val();
+ 					});
 				opener.TinyMCE_Add(jQuery('#EditorWindow textarea').val());
 			});
 			
