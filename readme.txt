@@ -1,22 +1,23 @@
-=== Instant Adsense ===
+=== MathTex Equation Editor ===
 Contributors: kobmat
 Donate Link: http://kobmat.com/math/?page_id=5919
-Tags: math, equation, editor
+Tags: math, equation, editor, latex
 Requires at least: 1.5
-Tested up to: 3.4
-Stable tag: 1.04
+Tested up to: 3.8.1
+Version: 1.0.7
+Stable tag: 1.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Inserts Math Equations on your posts. Requires a MathTex installed on your server
+Inserts Math Equations on your posts. 
 
 == Description ==
 
 MathTex Equation Edtor is a Free and Open Source Wordpress plugin which is able to insert math equations on while adding/editing a post. It can also convert
 equations made using the Codecogs editor to be rendered by the MathTex.cgi installation.
 
-This plugin depends on a mathtex.cgi installation provided at http://www.forkosh.com/mathtex.html or any other service that renders Math LaTeX if supplied with the markup text on the URL. 
-By default, the latex equations are rendered by the free mathtex.cgi installation provided at http://www.cyberroadie.org/cgi-bin/mathtex.cgi. 
+This plugin can be used with a mathtex.cgi installation provided at http://www.forkosh.com/mathtex.html or any other service that renders Math LaTeX if supplied 
+with the markup text on the URL. By default, the latex equations are rendered by the free mathtex.cgi installation provided at http://chart.apis.google.com/chart?cht=tx&chl=. 
 
 To run mathTex.cgi installation on your own personal server, installation instructions can be found at http://www.forkosh.com/mathtex.html. 
 You can also look up my blog post on the step by step installation of mathTex.cgi at http://kobmat.com/math/?p=5805.
@@ -44,3 +45,28 @@ Simple, just double click on the image.
 
 1. The Math LaTeX Equation Editor with preview and the insert equation image on the wordpress editor
 2. The icons added to the Wordpress editor toolbar.The icon inside the green square, if you were using codecogs before and you want to convert all the equations in the post to your mathtex.cgi installation. Clicking the button will scan the post for the equations and change the src to point to your mathTex Server location.
+ 
+== Changelog ==
+
+= 1.0.5 =
+* Auto closing {,(, [ and | when typing on the MathTex Editor
+* Auto completions of math LaTeX markup like \frac{}{} and \sqrt{}
+
+= 1.0.6 =
+* Toolbar for to simplify math latex markups
+
+= 1.0.7 =
+* Allow PHP to request for the LateX Equation
+* Caching of rendered equations
+* Default MathLaTeX Service set to http://chart.apis.google.com/chart?cht=tx&chl=
+
+== Upgrade Notice ==
+
+= 1.0.5 =
+This version add basic auto closing and completion features
+
+= 1.0.6 =
+This version add a math latex toolbar to simplify using math latex
+
+= 1.0.7 =
+This version allows the server to request for the equation using php and to cache the equation.
