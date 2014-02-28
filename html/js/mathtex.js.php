@@ -218,18 +218,41 @@ jQuery(document).ready(function($){
 		function mathtex_insert(data)
 		{
 			$textarea = jQuery('#EditorWindow textarea');
+					
 			if(positionStart == positionEnd)
 			{
 				if(data.indexOf('#') > 0)
 				{
 					data2 = data.replace("#", "");
-					$textarea.val($textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd));
-					$textarea.caret(positionStart + data.indexOf('#'), positionStart + data.indexOf('#'));
+					data2 = $textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd);
+					$textarea.val(data);
+					
+					if(data2.indexOf('{f?}') > 0)
+					{
+						focus_position = data2.indexOf('{f?}');
+						data2 = data2.replace('{f?}', '');
+						$textarea.val(data2);
+						$textarea.caret(positionStart + focus_position, positionStart + focus_position);
+					}	
+					else
+					{
+						$textarea.caret(positionStart + data.indexOf('#'), positionStart + data.indexOf('#'));
+					}
 				}
 				else
 				{
-				$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
-				$textarea.caret(positionStart + data.length, positionStart + data.length);
+					if(data.indexOf('{f?}') > 0)
+					{
+					focus_position = data.indexOf('{f?}');	
+					data2 = data.replace('{f?}', '');
+					$textarea.val($textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd));
+					$textarea.caret(positionStart + focus_position, positionStart + focus_position);
+					}
+					else
+					{
+					$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
+					$textarea.caret(positionStart + data.length, positionStart + data.length);
+					}
 				} 
 			}
 			else
@@ -239,13 +262,37 @@ jQuery(document).ready(function($){
 					{
 					xpos = data.indexOf('#');
 					data = data.substring(0, data.indexOf('#')) + selected_text + data.substring(data.indexOf('#') +1);
-					$textarea.val(data);
-					$textarea.caret(positionStart + data.length, positionStart + data.length); 
+					
+					if(data.indexOf('{f?}') > 0)
+					{
+						focus_start = data.indexOf('{f?}');
+						data = data.replace('{f?}', '');
+						$textarea.val(data);
+						$textarea.caret(positionStart + focus_start, positionStart + focus_start);
+					}
+					else
+					{
+						$textarea.val(data);
+						$textarea.caret(positionStart + data.length, positionStart + data.length);
+					}
+					 
 					}
 				else
 					{
-					$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
-					$textarea.caret(positionStart + data.length, positionStart + data.length); 	
+						
+						if(data.indexOf('{f?}') > 0)
+						{
+							focus_start = data.indexOf('{f?}');
+							data = data.replace('{f?}', '');
+							$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
+							$textarea.caret(positionStart + focus_start, positionStart + focus_start); 	
+						}
+						else
+						{
+							$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
+							$textarea.caret(positionStart + data.length, positionStart + data.length); 	
+						}
+					
 					}
 			}
 		}

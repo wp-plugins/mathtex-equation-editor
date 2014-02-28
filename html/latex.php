@@ -63,8 +63,9 @@ if(get_option('mathtex_enable_cache') == "yes")
 			}
 		}	
 }
-
-$result = wp_remote_get(get_option('mathtex_editor_server_url').urlencode_deep($_GET['d']));
+//echo get_option('mathtex_editor_server_url').(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? '?' : '').stripslashes($_GET['d']));
+$urlm= get_option('mathtex_editor_server_url').(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? '?'.$_GET['d'] : urlencode_deep(stripslashes($_GET['d'])));
+$result = wp_remote_get($urlm);
 if($result['response']['code'] == "200")
 {
 	header("Content-Type: ".$result['content-type']);

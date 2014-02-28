@@ -4,8 +4,8 @@ Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor, latex
 Requires at least: 1.5
 Tested up to: 3.8.1
-Version: 1.0.7
-Stable tag: 1.0.7
+Version: 1.0.8
+Stable tag: 1.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -26,8 +26,20 @@ For a quickstart guide on how to work with Math LaTeX, you can check on the guid
 
 Features:
 
-1. Insert images of math equations on your WYSIWYG Editor when creating/editing a blog post
-2. Convert equations in you created using codecogs to be rendered to your equations.
+1. Can work with a variety of Math Latex Rendering services. See Options for examples
+2. Insert images of math equations on your WYSIWYG Editor when creating/editing a blog post
+3. Convert equations in you created using codecogs to be rendered to your equations.
+4. Easy to use Math Latex toolbar
+5. Auto closes (, [, { and |, and inserts any selected text between the brackets, or parenthesis. Making typing equations a lot easier
+5. Caches equations you insert into your blog post
+6. Can be set to submit request to the Math Latex Rendering servers using PHP (gets around that annoying referrer error on post emails sent to subscribers)
+7. Saves a history of the math latex mark up you inserted into your blog posts
+8. Can Send entire equations or a selections of it to Wolfram Alpha
+
+In the works:
+
+1. Support for custom button on the toolbar for those most used latex mark up.
+2. More icons especiall for matrices on the toolbar
 
 == Installation ==
 
@@ -60,6 +72,11 @@ Simple, just double click on the image.
 * Caching of rendered equations
 * Default MathLaTeX Service set to http://chart.apis.google.com/chart?cht=tx&chl=
 
+= 1.0.8 =
+* Fixes to html/latex.php
+* Add to send to wolframalpha button
+* Added History 
+
 == Upgrade Notice ==
 
 = 1.0.5 =
@@ -70,3 +87,6 @@ This version add a math latex toolbar to simplify using math latex
 
 = 1.0.7 =
 This version allows the server to request for the equation using php and to cache the equation.
+
+= 1.0.8 = 
+This version contains fixes, a history function and way to send entire equations or selections to WolframAlpha
