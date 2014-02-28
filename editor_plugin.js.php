@@ -2,7 +2,11 @@
 define('WP_USE_THEMES', false); 
 $dirname = dirname(dirname(dirname(dirname(__FILE__))));
 require($dirname.'/wp-blog-header.php'); 
-$murl = get_option('mathtex_editor_server_url');
+if(get_option('mathtex_use_php_to_request') == "yes" || get_option('mathtex_enable_cache') == "yes")
+	$murl = plugins_url('html/latex.php?d=', __FILE__);
+else 
+	$murl = get_option('mathtex_editor_server_url');
+	
 $mcurl = get_option('mathtex_codecogs_url');
 ?>
 var popupEqnwin = null; 
@@ -99,49 +103,71 @@ var popupEqnwin = null;
 					$nurl = explode("/", $nurl);
 					$domain = array_shift($nurl);
 					
-					if(substr($murl, -6) == "latex=")
+					if(get_option('mathtex_use_php_to_request') == "yes" || get_option('mathtex_enable_cache') == "yes")
 					{
-						?>
-						var domainstring = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/(.*)$/ );
-						var sName = e.target.src.split("latex=")[1];
-						if(sName.length)
+						if(substr($murl, -2) == "d=")
 						{
-							if(domainstring[1]=='<?php echo $domain; ?>')
-				      			{
-				      				mystring = sName;
-				      				tinymce.execCommand('mathTexCommand', false, mystring);
-				      			}
-			      		}
-						<?php
+							?> 
+							var domainstring = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/(.*)$/ );
+							var sName = e.target.src.split("d=")[1];
+							if(sName.length)
+							{
+								if(domainstring[1]=='<?php echo $domain; ?>')
+					      			{
+					      				mystring = sName;
+					      				tinymce.execCommand('mathTexCommand', false, mystring);
+					      			}
+				      		}
+							<?php
+						}
 					}
-					if(substr($murl, -3) == "eq=")
+					else 
 					{
-						?> 
-						var domainstring = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/(.*)$/ );
-						var sName = e.target.src.split("eq=")[1];
-						if(sName.length)
+						if(substr($murl, -6) == "latex=")
 						{
-							if(domainstring[1]=='<?php echo $domain; ?>')
-				      			{
-				      				mystring = sName;
-				      				tinymce.execCommand('mathTexCommand', false, mystring);
-				      			}
-			      		}
-						<?php
-					}
-					else {
-						?>
-						var sName = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/<?php echo implode("\\/", $nurl); ?>\?(.*)/ );
-					
-						if(sName)
+							?>
+							var domainstring = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/(.*)$/ );
+							var sName = e.target.src.split("latex=")[1];
+							if(sName.length)
+							{
+								if(domainstring[1]=='<?php echo $domain; ?>')
+					      			{
+					      				mystring = sName;
+					      				tinymce.execCommand('mathTexCommand', false, mystring);
+					      			}
+				      		}
+							<?php
+						}
+						if(substr($murl, -3) == "eq=")
 						{
-							if(sName[1]=='<?php echo $domain; ?>')
-				      			{
-				      				mystring = sName[2];
-				      				tinymce.execCommand('mathTexCommand', false, mystring);
-				      			}
-			      		}
-						<?php
+							?> 
+							var domainstring = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/(.*)$/ );
+							var sName = e.target.src.split("eq=")[1];
+							if(sName.length)
+							{
+								if(domainstring[1]=='<?php echo $domain; ?>')
+					      			{
+					      				mystring = sName;
+					      				tinymce.execCommand('mathTexCommand', false, mystring);
+					      			}
+				      		}
+							<?php
+						}
+						else {
+							?>
+							var sName = e.target.src.match( /http:\/\/(<?php echo $domain; ?>)\/<?php echo implode("\\/", $nurl); ?>\?(.*)/ );
+						
+							if(sName)
+							{
+								if(sName[1]=='<?php echo $domain; ?>')
+					      			{
+					      				mystring = sName[2];
+					      				tinymce.execCommand('mathTexCommand', false, mystring);
+					      			}
+				      		}
+							<?php
+						}
+						
 					}
 					?>
 					
@@ -187,13 +213,6 @@ var popupEqnwin = null;
 // Add a new placeholder at the actual selection.
 TinyMCE_Add = function( name)
 {
-	//var sName = name.match(/mathtex\.cgi\?(.*)/ );
-	//var latex=sName[2];
-	//latex = latex.replace(/@plus;/g,'+');
-	//latex = latex.replace(/&plus;/g,'+');
-	//latex = latex.replace(/&space;/g,' ');
-	//latex = latex.replace(/&hash;/g,'#');
-	
-	tinyMCE.activeEditor.execCommand('mceInsertContent', false, '<img src="<?php echo $murl; ?><?php echo substr($murl, -1) != "=" ? '?' : '' ?>'+ <?php echo substr($murl, -1) != "=" ? 'name' : 'encodeURIComponent(name)' ?> +'" alt="'+name+'" align="absmiddle" />');
+	tinyMCE.activeEditor.execCommand('mceInsertContent', false, '<img src="<?php echo $murl; ?><?php echo substr($murl, -1) != "=" ? '?' : '' ?>'+ <?php echo substr($murl, -1) != "=" ? 'name' : 'encodeURIComponent(name)' ?> +'" alt="'+name+'" align="absmiddle" class="mathtex-equation-editor" />');
 	tinyMCE.execCommand('mceFocus', false, tinymce.activeEditor.editorId);
 };

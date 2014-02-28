@@ -2,6 +2,16 @@
 define('WP_USE_THEMES', false); 
 $dirname = dirname(dirname(dirname(dirname(dirname(__FILE__)))));
 require($dirname.'/wp-blog-header.php'); 
+
+$upload_path = wp_upload_dir();
+if(!file_exists($upload_path['basedir'].'/mathtex'))
+	{
+		mkdir($upload_path['basedir'].'/mathtex');
+		mkdir($upload_path['basedir'].'/mathtex/cache');
+		mkdir($upload_path['basedir'].'/mathtex/cache/'.md5(get_option('mathtex_editor_server_url')));
+		mkdir($upload_path['basedir'].'/mathtex/history');
+		mkdir($upload_path['basedir'].'/mathtex/macros');
+	}
 ?>
 <html>
 	<head>
@@ -155,7 +165,7 @@ require($dirname.'/wp-blog-header.php');
 				<div id="containersa">
 					<textarea id="latex_formula"><?php echo stripslashes(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? $_GET['latex'] : urldecode($_GET['latex'])); ?></textarea>
 					<div id="resultWindow">
-						<img src="<?php echo get_option('mathtex_editor_server_url'); ?>">
+						<img src="<?php echo (get_option('mathtex_use_php_to_request') == "no" && get_option('mathtex_enable_cache') == "no") ? get_option('mathtex_editor_server_url') : plugins_url('latex.php?cache=1&d=', __FILE__); ?>">
 					</div>
 					<div id="controlbuttons">
 						<input type="button" value="Clear" />

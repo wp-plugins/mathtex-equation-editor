@@ -2,9 +2,11 @@
 define('WP_USE_THEMES', false); 
 $dirname = dirname(dirname(dirname(dirname(dirname(dirname(__FILE__))))));
 require($dirname.'/wp-blog-header.php'); 
+
+
 ?>
 jQuery(document).ready(function($){
-			url = "<?php echo get_option('mathtex_editor_server_url'); ?>";
+			url = "<?php echo (get_option('mathtex_use_php_to_request') == "no" && get_option('mathtex_enable_cache') == "no") ? get_option('mathtex_editor_server_url') : plugins_url('latex.php?cache=1&d=', dirname(__FILE__)); ?>";
 			
 			jQuery('#controlbuttons input[value="Insert Equation"]').click(function(){
 				opener.TinyMCE_Add(jQuery('#EditorWindow textarea').val());
@@ -85,22 +87,23 @@ jQuery(document).ready(function($){
 				jQuery('#resultWindow img').hide();
 			}
 			
+			lastvalue = jQuery('#EditorWindow textarea').val();
+			
 			setInterval(function(){
 				if(jQuery('#EditorWindow textarea').val().length == 0)
 					jQuery('#resultWindow img').hide();
 				else
 					jQuery('#resultWindow img').show();
-				
-				jQuery('#resultWindow img').attr('src', url + <?php if(substr(get_option('mathtex_editor_server_url'), -1) != '=') { echo "'?' + "; } ?>  encodeURIComponent($('#EditorWindow textarea').val())); 
-				<?php
-				if(get_option('mathtex_editor_code_completion') == "yes")
-				{
-				?>
-					positionStart = jQuery('#EditorWindow textarea').caret().start;
-					positionEnd = jQuery('#EditorWindow textarea').caret().end;
-					<?php
+					
+				if(jQuery('#EditorWindow textarea').val() != lastvalue)
+				{	
+					jQuery('#resultWindow img').attr('src', url + <?php if(substr(get_option('mathtex_editor_server_url'), -1) != '=') { echo "'?' + "; } ?>  encodeURIComponent($('#EditorWindow textarea').val())); 
+					lastvalue = jQuery('#EditorWindow textarea').val();
 				}
-				?>
+				
+				positionStart = jQuery('#EditorWindow textarea').caret().start;
+				positionEnd = jQuery('#EditorWindow textarea').caret().end;
+				
 				},500);
 			
 			
