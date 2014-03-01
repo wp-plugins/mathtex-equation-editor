@@ -16,16 +16,16 @@ jQuery(document).ready(function($){
 				if(equations.length == 0)
 					{
 						$('#forwardbutton').hide();
-						$('prevbutton').hide();
-						$('prevbutton').parent().hide();
+						$('#prevbutton').hide();
+						$('#prevbutton').parent().hide();
 					}
 			});
 			
 			$('input[value="Send To Wolfram Alpha"]').click(function(){
 				if(positionStart == positionEnd)
-					window.open('http://www.wolframalpha.com/input/?i=' + encodeURIComponent($('#EditorWindow textarea').val()));
+					window.open('http://www.wolframalpha.com/input/?i=' + encodeURIComponent($('#EditorWindow textarea').val()), 'wolframwindow');
 				else
-					window.open('http://www.wolframalpha.com/input/?i=' + encodeURIComponent($('#EditorWindow textarea').val().substring(positionStart, positionEnd)));			
+					window.open('http://www.wolframalpha.com/input/?i=' + encodeURIComponent($('#EditorWindow textarea').val().substring(positionStart, positionEnd)), 'wolframwindow');			
 			});
 			
 			$('#forwardbutton').click(function(){
@@ -218,63 +218,69 @@ jQuery(document).ready(function($){
 		function mathtex_insert(data)
 		{
 			$textarea = jQuery('#EditorWindow textarea');
+			
+			
 					
 			if(positionStart == positionEnd)
 			{
-				if(data.indexOf('#') > 0)
+				if($textarea.val().length > positionEnd)
 				{
-					data2 = data.replace("#", "");
-					data2 = $textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd);
-					$textarea.val(data);
-					
-					if(data2.indexOf('{f?}') > 0)
+					if(data.indexOf('#') > 0)
 					{
-						focus_position = data2.indexOf('{f?}');
-						data2 = data2.replace('{f?}', '');
-						$textarea.val(data2);
-						$textarea.caret(positionStart + focus_position, positionStart + focus_position);
-					}	
+						data2 = data.replace("#", "");
+						data2 = data2.replace("{f?}", "");
+						data2 = $textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd);
+						$textarea.val(data);
+						
+						$textarea.caret(positionStart + data.indexOf('#'), positionStart + data.indexOf('#'));
+					}
 					else
 					{
-						$textarea.caret(positionStart + data.indexOf('#'), positionStart + data.indexOf('#'));
+						data2 = data.replace("{f?}", "");
+						
+						$textarea.val($textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd));
+						$textarea.caret(positionStart + data.length, positionStart + data2.length);
 					}
 				}
 				else
 				{
-					if(data.indexOf('{f?}') > 0)
+					if(data.indexOf('#') > 0)
 					{
-					focus_position = data.indexOf('{f?}');	
-					data2 = data.replace('{f?}', '');
-					$textarea.val($textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd));
-					$textarea.caret(positionStart + focus_position, positionStart + focus_position);
+						data2 = data.replace("#", "");
+						data2 = data2.replace("{f?}", "");
+						data2 = $textarea.val() + data2;
+						$textarea.val(data2);
+						$textarea.caret(positionStart + data.indexOf('#'), positionStart + data.indexOf('#'));
 					}
 					else
 					{
-					$textarea.val($textarea.val().substring(0, positionStart) + data + $textarea.val().substring(positionEnd));
-					$textarea.caret(positionStart + data.length, positionStart + data.length);
+						data2 = data2.replace("{f?}", "");
+						data2 = $textarea.val() + data;
+						$textarea.val(data2);
+						$textarea.caret(positionStart + data2.length, positionStart + data2.length);
 					}
-				} 
+				}	 
 			}
 			else
 			{
 				selected_text = $textarea.val().substring(positionStart,positionEnd);
 				if(data.indexOf('#') > 0)
 					{
-					xpos = data.indexOf('#');
-					data = data.substring(0, data.indexOf('#')) + selected_text + data.substring(data.indexOf('#') +1);
-					
-					if(data.indexOf('{f?}') > 0)
-					{
-						focus_start = data.indexOf('{f?}');
-						data = data.replace('{f?}', '');
-						$textarea.val(data);
-						$textarea.caret(positionStart + focus_start, positionStart + focus_start);
-					}
-					else
-					{
-						$textarea.val(data);
-						$textarea.caret(positionStart + data.length, positionStart + data.length);
-					}
+						xpos = data.indexOf('#');
+						data = data.substring(0, data.indexOf('#')) + selected_text + data.substring(data.indexOf('#') +1);
+						
+						if(data.indexOf('{f?}') > 0)
+						{
+							focus_start = data.indexOf('{f?}');
+							data = data.replace('{f?}', '');
+							$textarea.val(data);
+							$textarea.caret(positionStart + focus_start, positionStart + focus_start);
+						}
+						else
+						{
+							$textarea.val(data);
+							$textarea.caret(positionStart + data.length, positionStart + data.length);
+						}
 					 
 					}
 				else
