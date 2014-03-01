@@ -4,8 +4,8 @@ Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor, latex
 Requires at least: 1.5
 Tested up to: 3.8.1
-Version: 1.0.8
-Stable tag: 1.0.8
+Version: 1.0.9
+Stable tag: 1.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -77,6 +77,12 @@ Simple, just double click on the image.
 * Add to send to wolframalpha button
 * Added History 
 
+= 1.0.9 =
+* Fixes to the javascript for the toolbar
+* Added code to javascript to handle specifying focus and insertion point
+* Fixes to the math latex mark up inserted via the toolbar
+* Fixes to the javascript handling the history feature
+
 == Upgrade Notice ==
 
 = 1.0.5 =
@@ -90,3 +96,6 @@ This version allows the server to request for the equation using php and to cach
 
 = 1.0.8 = 
 This version contains fixes, a history function and way to send entire equations or selections to WolframAlpha
+
+= 1.0.9 =
+This version contains fixes to the javascript for the editor
