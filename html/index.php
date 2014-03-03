@@ -169,7 +169,8 @@ if(!file_exists($upload_path['basedir'].'/mathtex'))
 					</div>
 					<textarea id="latex_formula"><?php echo stripslashes(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? $_GET['latex'] : urldecode($_GET['latex'])); ?></textarea>
 					<div id="resultWindow">
-						<img src="<?php echo (get_option('mathtex_use_php_to_request') == "no" && get_option('mathtex_enable_cache') == "no") ? get_option('mathtex_editor_server_url') : plugins_url('latex.php?cache=1&d=', __FILE__); ?>">
+						<img src="<?php echo (get_option('mathtex_use_php_to_request') == "no" && get_option('mathtex_enable_cache') == "no") ? get_option('mathtex_editor_server_url') : plugins_url('latex.php?cache=1&d=', __FILE__); ?>
+								<?php echo stripslashes(substr(get_option('mathtex_editor_server_url'), -1) != '=' ? $_GET['latex'] : urldecode($_GET['latex'])); ?>">
 					</div>
 					<div id="controlbuttons">
 						<input type="button" value="Clear" />
