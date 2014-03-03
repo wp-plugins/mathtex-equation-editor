@@ -32,7 +32,7 @@ else
 	$data = explode("\n", $data);
 	array_pop($data);
 	foreach($data as $k=>$v)
-		$data[$k] = base64_decode($v);
+		$data[$k] = stripslashes(base64_decode($v));
 	wp_send_json($data);
 }
 ?>
