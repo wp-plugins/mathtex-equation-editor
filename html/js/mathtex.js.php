@@ -34,6 +34,7 @@ jQuery(document).ready(function($){
 				
 				loaded_equation++;	
 				jQuery('#EditorWindow textarea').val(equations[loaded_equation]);
+				jQuery('#EditorWindow textarea').caret({start:jQuery('#EditorWindow textarea').val().length,end:jQuery('#EditorWindow textarea').val().length});
 				return false;	
 			});
 			
@@ -42,7 +43,8 @@ jQuery(document).ready(function($){
 					loaded_equation = equations.length;
 				
 				loaded_equation--;	
-				jQuery('#EditorWindow textarea').val(equations[loaded_equation]);		
+				jQuery('#EditorWindow textarea').val(equations[loaded_equation]);	
+				jQuery('#EditorWindow textarea').caret({start:jQuery('#EditorWindow textarea').val().length,end:jQuery('#EditorWindow textarea').val().length});	
 				return false;
 			});
 			
@@ -147,12 +149,18 @@ jQuery(document).ready(function($){
 				
 				},500);
 			
+			jQuery('#resultWindow img').attr('src', url + <?php if(substr(get_option('mathtex_editor_server_url'), -1) != '=') { echo "'?' + "; } ?>  encodeURIComponent($('#EditorWindow textarea').val())); 
+			lastvalue = jQuery('#EditorWindow textarea').val();
 			
+			jQuery('#EditorWindow textarea').caret({start:jQuery('#EditorWindow textarea').val().length,end:jQuery('#EditorWindow textarea').val().length});
 		});
 		
 		function mathtex_autocomplete()
 		{
 			$textarea = jQuery('#EditorWindow textarea');
+			positionStart = jQuery('#EditorWindow textarea').caret().start;
+			positionEnd = jQuery('#EditorWindow textarea').caret().end;
+				
 			matches = $textarea.val().substring(0, positionStart).match(/\\(.*)$/);
 			return_val = false;
 			if(matches)
@@ -218,9 +226,8 @@ jQuery(document).ready(function($){
 		function mathtex_insert(data)
 		{
 			$textarea = jQuery('#EditorWindow textarea');
-			
-			
-					
+			positionStart = jQuery('#EditorWindow textarea').caret().start;
+			positionEnd = jQuery('#EditorWindow textarea').caret().end;
 			if(positionStart == positionEnd)
 			{
 				if($textarea.val().length > positionEnd)
@@ -239,7 +246,7 @@ jQuery(document).ready(function($){
 						data2 = data.replace("{f?}", "");
 						
 						$textarea.val($textarea.val().substring(0, positionStart) + data2 + $textarea.val().substring(positionEnd));
-						$textarea.caret(positionStart + data.length, positionStart + data2.length);
+						$textarea.caret(positionStart + data2.length, positionStart + data2.length);
 					}
 				}
 				else
@@ -254,7 +261,7 @@ jQuery(document).ready(function($){
 					}
 					else
 					{
-						data2 = data2.replace("{f?}", "");
+						data2 = data.replace("{f?}", "");
 						data2 = $textarea.val() + data;
 						$textarea.val(data2);
 						$textarea.caret(positionStart + data2.length, positionStart + data2.length);
@@ -332,4 +339,5 @@ jQuery(document).ready(function($){
 		{
 			jQuery('#EditorWindow textarea').val(latex);
 			jQuery('#EditorWindow textarea').change();
+			jQuery('#EditorWindow textarea').caret({start:latex.length,end:latex.length});
 		}
