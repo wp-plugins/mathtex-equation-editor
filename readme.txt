@@ -4,8 +4,8 @@ Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor, latex
 Requires at least: 1.5
 Tested up to: 3.8.1
-Version: 1.1.0
-Stable tag: 1.1.0
+Version: 1.1.1
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,9 @@ Simple, just double click on the image.
 * Fixes to the history feature
 * Fixes to the editor
 
+= 1.1.1 =
+* Fixes to the javascript for the editor
+
 == Upgrade Notice ==
 
 = 1.0.5 =
@@ -106,3 +109,6 @@ This version contains fixes to the javascript for the editor
 
 = 1.1.0 = 
 This version contain fixes to the history and the editor
+
+= 1.1.1 = 
+This version contain fixes to the javascript for the editor
