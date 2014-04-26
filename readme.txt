@@ -112,3 +112,6 @@ This version contain fixes to the history and the editor
 
 = 1.1.1 = 
 This version contain fixes to the javascript for the editor
+
+= 1.1.2 =
+Tested with Wordpress 3.9
