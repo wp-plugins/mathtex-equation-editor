@@ -4,7 +4,7 @@ Plugin Name: mathtex latex equation editor
 Plugin URI: http://latex.kobmat.com/mathtex-latex-equation-editor
 Description: Adds MathTex latex equation popup editor to wordrpess TinyMCE editor.
 Author: kobmat
-Version: 1.1.2
+Version: 1.1.3
 Author URI: http://www.kobmat.com/math
 */
 add_option( 'mathtex_editor_server_url', 'http://chart.apis.google.com/chart?cht=tx&chl=');
