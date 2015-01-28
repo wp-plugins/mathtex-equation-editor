@@ -118,3 +118,7 @@ Tested with Wordpress 3.9
 
 = 1.1.3 = 
 Tested with Wordpress 4.0
+
+= 1.1.4 = 
+Tested with Wordpress 4.1
+Updates to options
