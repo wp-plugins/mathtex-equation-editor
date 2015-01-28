@@ -4,8 +4,8 @@ Donate Link: http://kobmat.com/math/?page_id=5919
 Tags: math, equation, editor, latex
 Requires at least: 1.5
 Tested up to: 3.4
-Version: 1.1.3
-Stable tag: 1.1.3
+Version: 1.1.4
+Stable tag: 1.1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
