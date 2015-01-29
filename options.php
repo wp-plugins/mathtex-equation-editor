@@ -15,7 +15,7 @@
 		<li style="margin-left:50px;">http://s0.wp.com/latex.php?bg=ffffff&fg=000&s=1&latex=</li>
 		<li style="margin-left:50px;">http://www.sciweavers.org/tex2img.php?bc=White&fc=Black&im=jpg&fs=12&ff=arev&edit=0&eq=</li>
 		<li style="margin-left:50px;">http://chart.apis.google.com/chart?cht=tx&chl=</li>
-		<li style="margin-left:50px;">http://latex.kobmat.com/cgi-bin/mathtex.cgi (Paid LaTeX Web Service) <a href="http://kobmat.com/math/?p=7661">Click Here to Help us out!</a></li>
+		<li style="margin-left:50px;"><b style="color:Red">http://latex.kobmat.com/cgi-bin/mathtex.cgi (Paid LaTeX Web Service)</b> <a href="http://kobmat.com/math/?p=7661">Click Here to Help us out!</a></li>
 	</ul>
 </p>
 

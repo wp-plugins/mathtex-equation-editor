@@ -122,3 +122,6 @@ Tested with Wordpress 4.0
 = 1.1.4 = 
 Tested with Wordpress 4.1
 Updates to options
+
+= 1.1.5 =
+Fixes to options
